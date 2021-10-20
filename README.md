@@ -19,8 +19,13 @@ pip install git+https://github.com/nj-vs-vh/image-in-gh-commit-calendar.git
 ```bash
 # basic run
 gh-cal-image generate --image ./example/hello-world.png --max-commits-per-day 50
+
 # with auto-push
-gh-cal-image generate --image ./example/hello-world.png --max-commits-per-day 50 --remote git@github.com:nj-vs-vh/my-dummy-repo.git
+gh-cal-image generate \
+    --image ./example/hello-world.png \
+    --max-commits-per-day 50 \
+    --remote git@github.com:nj-vs-vh/my-dummy-repo.git
+
 # full options list
 gh-cal-image generate --help
 ```
@@ -28,5 +33,8 @@ gh-cal-image generate --help
 ### Preview image
 
 ```bash
-gh-cal-image preview --image ./example/hello-world.png --max-commits-per-day 30 --output preview.png
+gh-cal-image preview \
+    --image ./example/hello-world.png \
+    --max-commits-per-day 30 \
+    --output preview.png
 ```

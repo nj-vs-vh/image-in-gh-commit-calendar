@@ -41,12 +41,10 @@ def image2calendar(
     save_preview_to: Optional[Path] = None,
 ) -> Dict[date, int]:
     img = Image.open(image_file)
-    img.putalpha(255)
     img = ImageOps.grayscale(img)
-    img = img.convert('L')
     img = ImageOps.invert(img)
     img = img.resize(
-        (GITHUB_CALENDAR_WEEKS, GITHUB_CALENDAR_DAYS_PER_WEEK), resample=Image.BICUBIC
+        (GITHUB_CALENDAR_WEEKS, GITHUB_CALENDAR_DAYS_PER_WEEK), resample=Image.BILINEAR
     )
 
     if save_preview_to is not None:
