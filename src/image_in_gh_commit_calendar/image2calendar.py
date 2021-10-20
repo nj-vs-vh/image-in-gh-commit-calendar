@@ -21,16 +21,36 @@ def pixel2date(i_day: int, j_week: int, year: Optional[int]) -> datetime:
         now = datetime(year=year, month=12, day=31)
     # right-bottom pixel of an image
     last_saturday = now - timedelta(days=(1 + weekday(now)))
-    target_week_saturday = last_saturday - timedelta(days=7*(GITHUB_CALENDAR_WEEKS - (j_week + 1)))
-    target_day = target_week_saturday - timedelta(days=(GITHUB_CALENDAR_DAYS_PER_WEEK - (i_day + 1)))
+    target_week_saturday = last_saturday - timedelta(
+        days=7 * (GITHUB_CALENDAR_WEEKS - (j_week + 1))
+    )
+    target_day = target_week_saturday - timedelta(
+        days=(GITHUB_CALENDAR_DAYS_PER_WEEK - (i_day + 1))
+    )
     return target_day.date()
 
 
-def image2calendar(image_file: Path, max_commits_per_day: int = 100, year: Optional[int] = None) -> Dict[date, int]:
+def save_preview(img: Image.Image, path: Path):
+    ImageOps.colorize(img, black='#EBEDF0', white='#2E6F3A', mid='#56C766').save(path)
+
+
+def image2calendar(
+    image_file: Path,
+    max_commits_per_day: int,
+    year: Optional[int] = None,
+    save_preview_to: Optional[Path] = None,
+) -> Dict[date, int]:
     img = Image.open(image_file)
+    img.putalpha(255)
     img = ImageOps.grayscale(img)
+    img = img.convert('L')
     img = ImageOps.invert(img)
-    img = img.resize((GITHUB_CALENDAR_WEEKS, GITHUB_CALENDAR_DAYS_PER_WEEK), resample=Image.BICUBIC)
+    img = img.resize(
+        (GITHUB_CALENDAR_WEEKS, GITHUB_CALENDAR_DAYS_PER_WEEK), resample=Image.BICUBIC
+    )
+
+    if save_preview_to is not None:
+        save_preview(img, save_preview_to)
 
     commit_count_by_date = dict()
 
