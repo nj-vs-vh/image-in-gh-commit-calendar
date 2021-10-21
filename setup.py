@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='image_in_gh_commit_calendar',
-    version='0.0.2',
+    version='0.0.3',
     author='Igor Vaiman',
     description='Cutting-edge GitHub page customization tool',
     packages=find_packages(where='src'),

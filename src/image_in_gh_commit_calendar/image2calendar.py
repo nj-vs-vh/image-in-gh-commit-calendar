@@ -44,7 +44,7 @@ def image2calendar(
     img = ImageOps.grayscale(img)
     img = ImageOps.invert(img)
     img = img.resize(
-        (GITHUB_CALENDAR_WEEKS, GITHUB_CALENDAR_DAYS_PER_WEEK), resample=Image.BILINEAR
+        (GITHUB_CALENDAR_WEEKS, GITHUB_CALENDAR_DAYS_PER_WEEK), resample=Image.HAMMING
     )
 
     if save_preview_to is not None:
