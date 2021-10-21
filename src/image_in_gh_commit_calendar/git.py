@@ -4,15 +4,20 @@ from pathlib import Path
 
 
 def _run_shell_command(cmd: str, quiet: bool = True):
-    return subprocess.run(cmd, shell=True, capture_output=quiet, check=True)
+    process = subprocess.Popen(cmd, shell=True, executable='/bin/bash', stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    output, error = process.communicate()
+
+    if not quiet:
+        print(output, error)
+
+    if output:
+        return True
+    else:
+        return False
 
 
 def is_repo(repo: Path):
-    try:
-        _run_shell_command(f'cd "{repo.resolve()}" && git status')
-        return True
-    except subprocess.CalledProcessError:
-        return False
+    return _run_shell_command(f'cd "{repo.resolve()}" && git status')
 
 
 README_CONTENT = """
