@@ -19,7 +19,7 @@ def generate(
         image_path, max_commits_per_day=max_commits_per_day
     )
 
-    repo = Path(local_repo_path)
+    repo = Path(local_repo_path) / 'image-in-gh-commit-cal-generated-repo'
     if repo.exists():
         rmtree(repo)
     repo.mkdir(parents=True)

@@ -37,9 +37,9 @@ def cli():
 @click.option(
     "--repo-dir",
     "local_repo_path",
-    default="./image-in-gh-commit-calendar-generated-repo",
+    default=".",
     help=(
-        "Local directory to create repo. Will be completely overritten. "
+        "Local directory to create repo in. "
         + "Note that it cannot be placed inside existing git repository"
     ),
 )
